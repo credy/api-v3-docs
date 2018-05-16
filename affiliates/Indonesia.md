@@ -168,7 +168,11 @@ This method will create or update customer and return customer uuid.
     
 - **employer_address**
     - type: [ContactAddress](#contactaddress)
-    - required when `occupation` is in ('EMPLOYED_INDEFINITE_PERIOD', 'EMPLOYED_SPECIFIED_PERIOD', 'WRITTEN_CONTRACT_OR_ORDER', 'MILITARY_POLICE')
+    - required: when `occupation` is in:
+        - EMPLOYED_INDEFINITE_PERIOD
+        - EMPLOYED_SPECIFIED_PERIOD
+        - WRITTEN_CONTRACT_OR_ORDER
+        - MILITARY_POLICE
 
 - **tax_id_number**
     - type: string
@@ -176,15 +180,27 @@ This method will create or update customer and return customer uuid.
 
 - **employee_id**
     - type: string
-    - required: required when `occupation` is in ('EMPLOYED_INDEFINITE_PERIOD', 'EMPLOYED_SPECIFIED_PERIOD', 'WRITTEN_CONTRACT_OR_ORDER', 'MILITARY_POLICE')
+    - required: when `occupation` is in:
+        - EMPLOYED_INDEFINITE_PERIOD
+        - EMPLOYED_SPECIFIED_PERIOD
+        - WRITTEN_CONTRACT_OR_ORDER
+        - MILITARY_POLICE
         
 - **employer**
     - type: string
-    - required: required when `occupation` is in ('EMPLOYED_INDEFINITE_PERIOD', 'EMPLOYED_SPECIFIED_PERIOD', 'WRITTEN_CONTRACT_OR_ORDER', 'MILITARY_POLICE')
+    - required: when `occupation` is in:
+        - EMPLOYED_INDEFINITE_PERIOD
+        - EMPLOYED_SPECIFIED_PERIOD
+        - WRITTEN_CONTRACT_OR_ORDER
+        - MILITARY_POLICE
     
 - **current_job_position**
     - type: ENUM(string)  
-    - required: required when `occupation` is in ('EMPLOYED_INDEFINITE_PERIOD', 'EMPLOYED_SPECIFIED_PERIOD', 'WRITTEN_CONTRACT_OR_ORDER', 'MILITARY_POLICE')
+    - required: when `occupation` is in:
+        - EMPLOYED_INDEFINITE_PERIOD
+        - EMPLOYED_SPECIFIED_PERIOD
+        - WRITTEN_CONTRACT_OR_ORDER
+        - MILITARY_POLICE        
     - possible values:  
         - CONTRACT
         - STAFF
