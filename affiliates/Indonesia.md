@@ -155,7 +155,7 @@ This method will create or update customer and return customer uuid.
     - required: true
     
 - **address**
-    - type: PrimaryAddress
+    - type: [PrimaryAddress](#primaryaddress)
     - required: true
     
 - **lives_at_registered_address**
@@ -163,11 +163,11 @@ This method will create or update customer and return customer uuid.
     - required: true
     
 - **secondary_address**
-    - type: PrimaryAddress
+    - type: [PrimaryAddress](#primaryaddress)
     - required: when `lives_at_registered_address` is false
     
 - **employer_address**
-    - type: ContactAddress
+    - type: [ContactAddress](#contactaddress)
     - required when `occupation` is in ('EMPLOYED_INDEFINITE_PERIOD', 'EMPLOYED_SPECIFIED_PERIOD', 'WRITTEN_CONTRACT_OR_ORDER', 'MILITARY_POLICE')
 
 - **tax_id_number**
@@ -194,7 +194,7 @@ This method will create or update customer and return customer uuid.
         - SENIOR_MANAGEMENT
         
 - **contact_person_address**
-    - type: ContactAddress
+    - type: [ContactAddress](#contactaddress)
     - required: true
     
 - **contact_person_first_name**
@@ -233,6 +233,10 @@ This method will create or update customer and return customer uuid.
     
 - **bank_account**
     - type: string
+    - required: true
+    
+- **signature**
+    - type: [Signature](#signature)
     - required: true
   
 ## Types  
@@ -382,7 +386,7 @@ Creates lead for existing customer.
     - description: IP address of customer
     
 - signature
-    - type: Signature
+    - type: [Signature](#signature)
     - required: true
     - description: Request signature
 
