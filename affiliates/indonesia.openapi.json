@@ -1,0 +1,402 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Indonesia docs",
+    "version": "3.0.0",
+    "contact": {
+      "email": "it@credy.eu"
+    },
+    "description": "# Introduction \n\nCredy is a company that specializes on the quality lead generation. \\\nThis document further describes how to integrate API to send leads to Credy.\\\nShould you have any questions, please do not hesitate to contact the IT manager at [it@credy.eu](mailto:it@credy.eu).\\\n\n## General information\n\nProduction URL: [https://api.credy.eu/v3/](https://api.credy.eu/v3/)\n\nStaging URL: [http://api.staging.credy.eu/v3/](http://api.staging.credy.eu/v3/)\n\nAPI supports post fields, XML and JSON.\n\nTo get response error messages in spain, \"Accept-Language\" header’s value must be set to according ISO code. Ex: “id” or “id-ID“.\n\n## Signing requests\n\nEach request must be signed. Signature consists of api_key, timestamp and hash.\n\nHash is a SHA1 hash of the concatenation of timestamp, api_key and secret_key.\n\nAllowed deviation for timestamp is UTC +/- 60 seconds.\n\n*ex. sha1(timestamp + apiKey + secretKey)*\n\nApi key and secret key will be assigned to you by Credy.\n\n## Lead registration flow\n\n1. Request is sent to /v3/customers\n\n2. If request is successful, customer uuid must be stored\n\n3. Request is sent to /v3/leads with previously stored customer uuid in query parameter \"customer\" *ex. /v3/leads?customer=a3ff7c20-e9e8-43a0-bfb7-71a5cf43b8d3*    \n"
+  },
+  "servers": [
+    {
+      "url": "http://api.staging.credy.eu/v3",
+      "description": "Staging server"
+    },
+    {
+      "url": "https://api.credy.eu/v3",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/customers": {
+      "post": {
+        "description": "Register customer",
+        "requestBody": {
+          "description": "Customer info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "$ref": "#/components/responses/CustomerSuccess"
+          }
+        }
+      }
+    },
+    "/leads": {
+      "post": {
+        "description": "Register lead",
+        "requestBody": {
+          "description": "Lead info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lead"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "$ref": "#/components/responses/CustomerSuccess"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "CustomerSuccess": {
+        "description": ""
+      }
+    },
+    "schemas": {
+      "PrimaryAddress": {
+        "type": "object",
+        "required": [
+          "city",
+          "street",
+          "house_number",
+          "postal_code",
+          "village",
+          "province",
+          "district",
+          "rt",
+          "rw"
+        ],
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "house_number": {
+            "type": "string"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Format: /^[0-9]{5}$/"
+          },
+          "village": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "rt": {
+            "type": "string"
+          },
+          "rw": {
+            "type": "string"
+          }
+        }
+      },
+      "ContactAddress": {
+        "type": "object",
+        "required": [
+          "city",
+          "street",
+          "house_number",
+          "postal_code"
+        ],
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "house_number": {
+            "type": "string"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Format: /^[0-9]{5}$/"
+          }
+        }
+      },
+      "Signature": {
+        "type": "object",
+        "required": [
+          "timestamp",
+          "api_key",
+          "hash"
+        ],
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int32",
+            "description": "unix timestamp, must be UTC +/- 60 seconds"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API key"
+          },
+          "hash": {
+            "type": "string",
+            "description": "sha1 concatenation of timestamp, api key and secret key"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "phone",
+          "personal_id",
+          "mother_first_name",
+          "mother_last_name",
+          "religion",
+          "nationality",
+          "marital_status",
+          "dependant_count",
+          "education",
+          "housing_type",
+          "monthly_expenses",
+          "monthly_utility_expenses",
+          "address",
+          "lives_at_registered_address",
+          "tax_id_number",
+          "contact_person_address",
+          "contact_person_first_name",
+          "contact_person_last_name",
+          "contact_person_phone",
+          "occupation",
+          "neto_income",
+          "bank_name",
+          "bank_account",
+          "signature"
+        ],
+        "properties": {
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "phone2": {
+            "type": "string"
+          },
+          "personal_id": {
+            "type": "string"
+          },
+          "spouse_personal_id": {
+            "type": "string",
+            "description": "required when `marital_status` is MARRIED"
+          },
+          "spouse_first_name": {
+            "type": "string",
+            "description": "required when `marital_status` is MARRIED"
+          },
+          "spouse_last_name": {
+            "type": "string",
+            "description": "required when `marital_status` is MARRIED"
+          },
+          "spouse_split_agreement": {
+            "type": "boolean",
+            "description": "required when `marital_status` is DIVORCED"
+          },
+          "mother_first_name": {
+            "type": "string"
+          },
+          "mother_last_name": {
+            "type": "string"
+          },
+          "religion": {
+            "type": "string",
+            "enum": [
+              "CHRISTIAN",
+              "CATHOLIC",
+              "MUSLIM",
+              "HINDU"
+            ]
+          },
+          "nationality": {
+            "type": "string"
+          },
+          "marital_status": {
+            "type": "string",
+            "enum": [
+              "SINGLE",
+              "DIVORCED",
+              "MARRIED",
+              "WITH_PARTNER",
+              "WIDOW"
+            ]
+          },
+          "dependant_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "education": {
+            "type": "string",
+            "enum": [
+              "NO_EDUCATION",
+              "BASIC_SCHOOL",
+              "HIGH_SCHOOL",
+              "INDUSTRIAL_SCHOOL",
+              "BACHELOR",
+              "MASTER",
+              "PHD"
+            ]
+          },
+          "housing_type": {
+            "type": "string",
+            "enum": [
+              "RENTED_ROOM",
+              "RENTED_APARTMENT",
+              "RENTED_HOUSE",
+              "OWN_APARTMENT",
+              "OWN_HOUSE",
+              "WITH_PARENTS"
+            ]
+          },
+          "monthly_expenses": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "monthly_utility_expenses": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "$ref": "#/components/schemas/PrimaryAddress"
+          },
+          "lives_at_registered_address": {
+            "type": "boolean"
+          },
+          "secondary_address": {
+            "$ref": "#/components/schemas/PrimaryAddress",
+            "description": "required when `lives_at_registered_address` is false"
+          },
+          "employer_address": {
+            "$ref": "#/components/schemas/ContactAddress",
+            "description": "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n- MILITARY_POLICE\n"
+          },
+          "tax_id_number": {
+            "type": "string"
+          },
+          "employee_id": {
+            "type": "string",
+            "description": "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n- MILITARY_POLICE\n"
+          },
+          "employer": {
+            "type": "string",
+            "description": "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n- MILITARY_POLICE\n"
+          },
+          "current_job_position": {
+            "type": "string",
+            "description": "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n- MILITARY_POLICE        \n",
+            "enum": [
+              "CONTRACT",
+              "STAFF",
+              "SUPERVISOR",
+              "JUNIOR_MANAGEMENT",
+              "MIDDLE_MANAGEMENT",
+              "SENIOR_MANAGEMENT"
+            ]
+          },
+          "contact_person_address": {
+            "$ref": "#/components/schemas/ContactAddress"
+          },
+          "contact_person_first_name": {
+            "type": "string"
+          },
+          "contact_person_last_name": {
+            "type": "string"
+          },
+          "contact_person_phone": {
+            "type": "string"
+          },
+          "occupation": {
+            "type": "string",
+            "enum": [
+              "EMPLOYED_INDEFINITE_PERIOD",
+              "EMPLOYED_SPECIFIED_PERIOD",
+              "WRITTEN_CONTRACT_OR_ORDER",
+              "MILITARY_POLICE",
+              "ECONOMIC_ACTIVITY",
+              "UNEMPLOYED",
+              "STUDENT",
+              "PENSIONER1",
+              "OTHER"
+            ]
+          },
+          "neto_income": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bank_name": {
+            "type": "string"
+          },
+          "bank_account": {
+            "type": "string"
+          },
+          "signature": {
+            "$ref": "#/components/schemas/Signature"
+          }
+        }
+      },
+      "Lead": {
+        "type": "object",
+        "required": [
+          "loan_sum",
+          "loan_period",
+          "ip_address",
+          "loan_purpose",
+          "signature"
+        ],
+        "properties": {
+          "loan_sum": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Amount of credit requested by customer"
+          },
+          "loan_period": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Term for credit requested"
+          },
+          "ip_address": {
+            "type": "string",
+            "description": "IP address of customer"
+          },
+          "loan_purpose": {
+            "type": "string"
+          },
+          "signature": {
+            "$ref": "#/components/schemas/Signature"
+          }
+        }
+      }
+    }
+  }
+}
