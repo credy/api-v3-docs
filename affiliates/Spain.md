@@ -114,11 +114,11 @@ address[city] - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
 
 address[house_number] - `/^\d+[a-záéèíñóúüç]?$/ui`
 
-address[postal_code] - `'/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/'`
+address[postal_code] - `/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/`
 
 secondary_address[house_number] - `/^\d+[a-záéèíñóúüç]?$/ui`
 
-secondary_address[postal_code] - `'/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/'`
+secondary_address[postal_code] - `/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/`
 
 
 
