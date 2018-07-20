@@ -98,19 +98,17 @@ This method will create or update customer and return customer uuid.
 | signature[hash]                 | Required                                                                                                                                            | A sha1 concatenation of timestamp, api key and secret key  |
 
 # Regular expressions
-| Attribute                              | Regular expression                               |
-|----------------------------------------|--------------------------------------------------|
-| first_name                             | `/^[a-záéèíñóúüç[:space:]-\']+$/ui`              |
-| last_name                              | `/^[a-záéèíñóúüç[:space:]-\']+$/ui`              |
-| second_last_name                       | `/^[a-záéèíñóúüç[:space:]-\']+$/ui`              |
-| nationality                            | `/^[a-záéèíñóúüç[:space:]-\']+$/ui`              |
-| bank_account                           | `/(ES|PT).*/`                                    |
-| address                                | `/^[a-záéèíñóúüç[:space:]-\']+$/ui`              |
-| address[city]                          | `/^[a-záéèíñóúüç[:space:]-\']+$/ui`              |
-| address[house_number]                  | `/^\d+[a-záéèíñóúüç]?$/ui`                       |
-| address[postal_code]                   | `'/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/'` |
-| secondary_address[house_number]        | `/^\d+[a-záéèíñóúüç]?$/ui`                       |
-| secondary_address[postal_code]         | `'/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/'` |
+first_name - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
+last_name  - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
+second_last_name - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
+nationality - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
+bank_account - `/(ES|PT).*/`
+address - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
+address[city] - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
+address[house_number] - `/^\d+[a-záéèíñóúüç]?$/ui`
+address[postal_code] - `'/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/'`
+secondary_address[house_number] - `/^\d+[a-záéèíñóúüç]?$/ui`
+secondary_address[postal_code] - `'/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/'`
 
 
 ### JSON examples for /v3/customers
