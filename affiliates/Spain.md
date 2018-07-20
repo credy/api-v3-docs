@@ -47,11 +47,11 @@ This method will create or update customer and return customer uuid.
 | first_name                      | Required <br /> must match regex: `/^[a-záéèíñóúüç[:space:]-\']+$/ui`                                                                         | First name of customer                                     |
 | last_name                       | Required <br /> must match regex: `/^[a-záéèíñóúüç[:space:]-\']+$/ui`                                                                         | Last name of the customer                                  |
 | second_last_name                | Required <br /> string (max 255), must match regex: `/^[a-záéèíñóúüç[:space:]-\']+$/ui`                                                       | Last name of the customer                                  |
-| nationality                     | Optional <br /> string (max 255), must match regex: `/^[a-záéèíñóúüç[:space:]-\']+$/ui`                                                       | Last name of the customer                                  |
+| nationality                     | Optional <br /> string (max 255), must match regex: `/^[a-záéèíñóúüç[:space:]-\']+$/ui`                                                       | Nationality of the customer                                  |
 | phone_plan                      | Optional <br /> format: PREPAID, CONTRACT                                                                                                     | Phone plan of the customer                                 |
 | email                           | Required <br /> valid email address                                                                                                           | Email address                                              |
 | personal_id                     | Required <br /> must be valid DNI                                                                                                                   | DNI                                                      |
-| bank_account                    | Optional <br /> must be valid IBAN, must match regex: `/(ES|PT).*/`                                                                                 | Bank account                                               |
+| bank_account                    | Optional <br /> must be valid IBAN, must match [regex](#bank-account-regexp)                                                                        | Bank account                                               |
 | phone                           | Required <br /> must be valid phone number                                                                                                          | Customer mobile phone number                               |
 | occupation                      | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                                                   | Occupation                                                 |
 | housing_type                    | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                                                   | Housing type                                               |
@@ -96,6 +96,9 @@ This method will create or update customer and return customer uuid.
 | signature[timestamp]            | Required <br /> unix timestamp – must be UTC +/- 60 seconds                                                                                         | Timestamp when request is made                             |
 | signature[api_key]              | Required                                                                                                                                      | Api key                                                    |
 | signature[hash]                 | Required                                                                                                                                      | A sha1 concatenation of timestamp, api key and secret key  |
+
+# Bank account regexp
+Bank account must match regex: `/(ES|PT).*/`
 
 ### JSON examples for /v3/customers
 
