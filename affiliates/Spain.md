@@ -42,23 +42,21 @@ Api key and secret key will be assigned to you by Credy.
 
 This method will create or update customer and return customer uuid.
 
-| Field                           | Validations                                                                                                                                   | Description                                                |
-|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| first_name                      | Required <br /> must match [regex](#regular-expressions)                                                                                      | First name of customer                                     |
-| last_name                       | Required <br /> must match [regex](#regular-expressions)                                                                                      | Last name of the customer                                  |
-| second_last_name                | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                    | Last name of the customer                                  |
-| nationality                     | Optional <br /> string (max 255), must match [regex](#regular-expressions)                                                                    | Nationality of the customer                                  |
-| phone_plan                      | Optional <br /> format: PREPAID, CONTRACT                                                                                                     | Phone plan of the customer                                 |
-| email                           | Required <br /> valid email address                                                                                                           | Email address                                              |
-| personal_id                     | Required <br /> must be valid DNI                                                                                                                   | DNI                                                      |
-| bank_account                    | Optional <br /> must be valid IBAN, must match [regex](#bank-account-regexp)                                                                        | Bank account                                               |
+| Field                           | Validations                                                                                                                                         | Description                                                |
+|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| first_name                      | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | First name of customer                                     |
+| last_name                       | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | Last name of the customer                                  |
+| second_last_name                | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | Second last name of the customer                           |
+| nationality                     | Required <br /> string (max 255), must match [countries](#countries)                                                                                | Nationality of the customer                                |
 | phone                           | Required <br /> must be valid phone number                                                                                                          | Customer mobile phone number                               |
+| phone_plan                      | Optional <br /> format: PREPAID, CONTRACT                                                                                                           | Phone plan of the customer                                 |
+| email                           | Required <br /> valid email address                                                                                                                 | Email address                                              |
+| personal_id                     | Required <br /> must be valid DNI                                                                                                                   | DNI                                                        |
+| bank_account                    | Optional <br /> must be valid IBAN, must match [regex](#bank-account-regexp)                                                                        | Bank account                                               |
 | occupation                      | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                            | Occupation                                                 |
 | housing_type                    | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                            | Housing type                                               |
 | marital_status                  | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                            | Marital status                                             |
 | education                       | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                            | Education                                                  |
-| neto_income                     | Required <br /> numeric                                                                                                                             | Net income                                                 |
-| monthly_expenses                | Required <br /> numeric                                                                                                                             | Monthly expenses                                           |
 | address                         | Required <br /> must match [regex](#regular-expressions)                                                                                            | Real address of the customer                               |
 | address[city]                   | Required <br /> must match [regex](#regular-expressions)                                                                                            | City                                                       |
 | address[street]                 | Required <br /> free text                                                                                                                           | Street                                                     |
@@ -72,30 +70,52 @@ This method will create or update customer and return customer uuid.
 | secondary_address[house_number] | Required <br /> must match [regex](#regular-expressions)                                                                                            | House number                                               |
 | secondary_address[flat_number]  | Optional <br /> free text                                                                                                                           | Flat number                                                |
 | secondary_address[postal_code]  | Required <br /> must match [regex](#regular-expressions)                                                                                            | Postal index                                               |
-| employer_address                | Required when occupation in list: EMPLOYED_INDEFINITE_PERIOD, EMPLOYED_SPECIFIED_PERIOD, WRITTEN_CONTRACT_OR_ORDER                                  | Employer’s address                                         |
-| employer_address[city]          | Required <br /> free text                                                                                                                           | City                                                       |
-| employer_address[street]        | Required <br /> free text                                                                                                                           | Street                                                     |
-| employer_address[house_number]  | Required <br /> integer                                                                                                                             | House number                                               |
-| employer_address[flat_number]   | Optional <br /> free text                                                                                                                           | Flat number                                                |
-| employer_address[postal_code]  | Required <br /> format: #####                                                                                                                        | Postal index                                               |
+| current_job_position            | Required when occupation in list EMPLOYED_INDEFINITE_PERIOD, EMPLOYED_SPECIFIED_PERIOD, WRITTEN_CONTRACT_OR_ORDER <br /> free text                  | Current job position                                       |
+| neto_income                     | Required <br /> numeric                                                                                                                             | Net income                                                 |
+| monthly_expenses                | Required <br /> numeric                                                                                                                             | Monthly expenses                                           |
 | remuneration_deadline           | Required when occupation != UNEMPLOYED; format: YYYY-MM-DD                                                                                          | Remuneration deadline                                      |
 | employed_since                  | Required when occupation in list EMPLOYED_INDEFINITE_PERIOD, EMPLOYED_SPECIFIED_PERIOD, WRITTEN_CONTRACT_OR_ORDER <br /> format: YYYY-MM-DD         | Employed since date                                        |
-| employer                        | Required when occupation in list EMPLOYED_INDEFINITE_PERIOD, EMPLOYED_SPECIFIED_PERIOD, WRITTEN_CONTRACT_OR_ORDER <br /> free text                  | Employer                                                   |
-| employer_phone                  | Required when occupation in list EMPLOYED_INDEFINITE_PERIOD, EMPLOYED_SPECIFIED_PERIOD, WRITTEN_CONTRACT_OR_ORDER <br /> must be valid phone number | Employer’s phone number                                    |
-| current_job_position            | Required when occupation in list EMPLOYED_INDEFINITE_PERIOD, EMPLOYED_SPECIFIED_PERIOD, WRITTEN_CONTRACT_OR_ORDER <br /> free text                  | Current job position                                       |
-| tax_id_number                   | Required when occupation == ECONOMIC_ACTIVITY <br /> must be valid tax id number                                                                    | Tax ID number                                              |
-| business_registration_date      | Required when occupation == ECONOMIC_ACTIVITY <br /> format: YYYY-MM-DD                                                                             | Business registration date                                 |
-| university_name                 | Required when occupation == STUDENT <br /> free text                                                                                                | University name                                            |
-| university_city                 | Required when occupation == STUDENT <br /> free text                                                                                                | university city                                            |
-| car                             | Required <br /> for allowed values see [Addendum A](#addendum-a---enums) <br />                                                                     | Does customer own a car?                                   |
-| carYear                         | Optional <br /> format: YYYY                                                                                                                        | Year of a car                                              |
-| bad_credit_history              | Required <br /> boolean <br /> defaults to false                                                                                                    | Does customer have bad credit history?                                  |
-| salary_to_personal_account      | Required <br /> boolean <br /> defaults to false                                                                                                    | Does customer receive salary on their bank account?        |
-| dependant_count                 | Required <br /> integer                                                                                                                             | Dependant count        |
+| bad_credit_history              | Required <br /> boolean <br /> defaults to false                                                                                                    | Does customer have bad credit history?                     |
+| dependant_count                 | Required <br /> integer                                                                                                                             | Dependant count                                            |
 | signature                       | Required <br /> Object                                                                                                                              | Request signature                                          |
 | signature[timestamp]            | Required <br /> unix timestamp – must be UTC +/- 60 seconds                                                                                         | Timestamp when request is made                             |
 | signature[api_key]              | Required                                                                                                                                            | Api key                                                    |
 | signature[hash]                 | Required                                                                                                                                            | A sha1 concatenation of timestamp, api key and secret key  |
+| agree_electronic_services       | Required <br /> Boolean                                                                                                                             | Does customer agree with electronic services               |
+| agree_personal_data_protection  | Required <br /> Boolean                                                                                                                             | Does customer agree with personal data protection ?        | 
+| agree_data_sharing              | Required <br /> Boolean                                                                                                                             | Does customer agree with data sharing ?                    | 
+| agreements.terms_of_service     | Required <br /> Integer [1 - Yes, 0 - No]                                                                                                           | Does customer agree with terms of service?                 |
+| agreements.data_proccessing_policy | Required <br /> Integer [1 - Yes, 0 - No]                                                                                                        | Does customer agree with data processingpolicy             |         
+
+
+
+# Countries
+
+| Country                         |
+|---------------------------------|
+| Spain                           |
+| Germany                         |
+| Argentina                       |
+| Bolivia                         |
+| Brazil                          |
+| Bulgaria                        |
+| Russia                          |
+| Chile                           |
+| China                           | 
+| Colombia                        |
+| Ecuador                         |
+| Philippines                     |
+| France                          |
+| Italy                           |
+| India                           |
+| Morocco                         |
+| Paraguay                        |
+| Peru                            |
+| Portugal                        |
+| Poland                          |
+| Other                           |
+
+
 
 # Regular expressions
 first_name - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
@@ -134,39 +154,47 @@ secondary_address[postal_code] - `/^(0[1-9]|[1-4][0-9]|5[0-2])[\-]{0,1}\d{3}$/`
 Body:
 ```json
 {  
-   "business_registration_date":"1994-11-25",
-   "dependant_count":"1",
-   "education":"MASTER",
-   "employed_since":"2009-05-21",
-   "housing_type":"RENTED_APARTMENT_OR_HOUSE",
-   "lives_at_registered_address":"1",
+   "first_name":"Rodrigo",
+   "last_name":"Quezada",
+   "second_last_name":"Quezada",
+   "nationality":"Spain",
+   "phone":"711830551",
+   "phone_plan":"prepaid",
+   "email":"jaime.vigil@mailinator.com",
+   "personal_id":"74180810Z",
+   "bank_account":"ES2985991120311146424821",
+   "occupation":"EMPLOYED_INDEFINITE_PERIOD",
+   "housing_type":"RENTED_ROOM",
    "marital_status":"MARRIED",
-   "monthly_expenses":"901",
-   "tax_id_number":"3309963272",
+   "education":"MASTER",
    "address": {
-      "street":"Rúa Olmos",
       "city":"Poveda de las Cintas",
+      "street":"Rúa Olmos",
       "house_number":"94",
       "postal_code":"23013"
    },
-   "bank_account":"ES9200219506422297185089",
-   "current_job_position":"Businessman",
-   "email":"je@mailinator.com",
-   "employer":"Traffic Control",
-   "employer_phone":"723151373",
-   "first_name":"Jenifer",
-   "last_name":"Mann",
-   "second_last_name":"Mann",
-   "neto_income":"1134",
-   "occupation":"ECONOMIC_ACTIVITY",
-   "personal_id":"29720791F",
-   "phone":"711830551",
+   "lives_at_registered_address":"1",
+   "secondary_address": {
+      "city":"Poveda de las Cintas",
+      "street":"Rúa Olmos",
+      "house_number":"94",
+      "postal_code":"23013"
+   },
+   "neto_income":"2000",
+   "monthly_expenses":"600",
    "remuneration_deadline":"2017-11-19",
+   "bad_credit_history":"0",
+   "dependant_count":"1",
    "signature":{  
       "api_key":"spain",
       "timestamp":1510256918,
       "hash":"1f9158037d701039236cedc1b6efcd74bd0dc1cb"
-   }
+   },
+   "agree_electronic_services":"1",
+   "agree_personal_data_protection":"1",
+   "agree_data_sharing":"1",
+   "agreements.terms_of_service":"1",
+   "agreements.data_proccessing_policy":"1"
 }
 ```
 
@@ -177,77 +205,38 @@ Status code: 2xx
 Response:
 ```json
 {
-    "uuid": "c35c40b7-7fba-4dad-bc40-e81652c46c7c",
-    "first_name": "Jenifer",
-    "last_name": "Mann",
-    "second_last_name": "Mann",
-    "email": "je@mailinator.com",
-    "product": "PAYDAY",
-    "address_flat_number": "",
-    "employer_flat_number": "",
-    "secondaryAddress_flat_number": "",
-    "personal_id": "29720791F",
-    "phone": "711830551",
-    "carBrand": null,
-    "carModel": null,
-    "carYear": null,
-    "employer_street": "",
-    "employer_postal_index": "",
-    "employer_house_number": "",
-    "phone2": null,
-    "employer_phone": "723151373",
-    "dependant_count": "1",
-    "monthly_expenses": "901",
-    "neto_income": "1134",
-    "lives_at_registered_address": "1",
-    "phone_confirmed": 0,
-    "bad_credit_history": null,
-    "salary_to_personal_account": null,
-    "car": "NO",
-    "ruian": null,
-    "occupation": "ECONOMIC_ACTIVITY",
-    "marital_status": "MARRIED",
-    "housing_type": "RENTED_APARTMENT_OR_HOUSE",
-    "gender": "MALE",
-    "education": "MASTER",
-    "industry": "",
-    "remuneration_frequency": "",
-    "bank_account": "ES9200219506422297185089",
-    "address_postal_index": "92139",
-    "birth_date": "1973-09-03",
-    "remuneration_deadline": "2017-11-19",
-    "employed_since": "2009-05-21",
-    "address_city": "Poveda de las Cintas",
-    "address_address": "Rúa Olmos",
-    "address_house_number": "94",
-    "secondaryAddress_city": "",
-    "secondaryAddress_address": "",
-    "secondaryAddress_house_number": "",
-    "secondaryAddress_postal_index": "",
-    "employer": "Traffic Control",
-    "current_job_position": "Businessman",
-    "employer_work_city": "",
-    "tax_id_number": "3309963272",
-    "business_registration_date": "1994-11-25",
-    "employment_sector": "",
-    "address": {
-        "street":"Rúa Olmos",
-        "city":"Poveda de las Cintas",
-        "house_number":"94",
-        "postal_code":"23013"
-    },
-    "secondary_address": {
-        "street":"",
-        "city":"",
-        "house_number":"",
-        "postal_code":""
-    },
-    "employer_address": {
-        "street":"",
-        "city":"",
-        "house_number":"",
-        "postal_code":""
-    }
+   "uuid": "c35c40b7-7fba-4dad-bc40-e81652c46c7c",
+   "first_name":"Rodrigo",
+   "last_name":"Quezada",
+   "second_last_name":"Quezada",
+   "nationality":"Spain",
+   "phone":"711830551",
+   "phone_plan":"prepaid",
+   "email":"jaime.vigil@mailinator.com",
+   "personal_id":"74180810Z",
+   "bank_account":"ES2985991120311146424821",
+   "occupation":"EMPLOYED_INDEFINITE_PERIOD",
+   "housing_type":"RENTED_ROOM",
+   "marital_status":"MARRIED",
+   "education":"MASTER",
+   "address": {
+      "city":"Poveda de las Cintas",
+      "street":"Rúa Olmos",
+      "house_number":"94",
+      "postal_code":"23013"
+   },
+   "lives_at_registered_address":"1",
+   "secondary_address": {
+      "city":"Poveda de las Cintas",
+      "street":"Rúa Olmos",
+      "house_number":"94",
+      "postal_code":"23013"
+   },
+   "neto_income":"2000",
+   "monthly_expenses":"600",
+   "remuneration_deadline":"2017-11-19",
+   "bad_credit_history":"0",
+   "dependant_count":"1"
 }
 ```
 
@@ -283,39 +272,47 @@ Body:
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <request>
-    <business_registration_date>1994-11-25</business_registration_date>
-    <dependant_count>1</dependant_count>
-    <education>MASTER</education>
-    <employed_since>2009-05-21</employed_since>
-    <housing_type>RENTED_APARTMENT_OR_HOUSE</housing_type>
-    <lives_at_registered_address>1</lives_at_registered_address>
+    <first_name>Rodrigo</first_name>
+    <last_name>Quezada</last_name>
+    <second_last_name>Quezada</second_last_name>
+    <nationality>Spain</nationality>
+    <phone>711830551</phone>
+    <phone_plan>prepaid</phone_plan>
+    <email>jaime.vigil@mailinator.com</email>
+    <personal_id>74180810Z</personal_id>
+    <bank_account>ES2985991120311146424821</bank_account>
+    <occupation>EMPLOYED_INDEFINITE_PERIOD</occupation>
+    <housing_type>RENTED_ROOM</housing_type>
     <marital_status>MARRIED</marital_status>
-    <monthly_expenses>901</monthly_expenses>
-    <tax_id_number>3309963272</tax_id_number>
+    <education>MASTER</education>
     <address>
         <street>Rúa Olmos</street>
         <city>Poveda de las Cintas</city>
         <house_number>94</house_number>
         <postal_code>23013</postal_code>
     </address>
-    <bank_account>ES9200219506422297185089</bank_account>
-    <current_job_position>Businessman</current_job_position>
-    <email>je@mailinator.com</email>
-    <employer>Traffic Control</employer>
-    <employer_phone>723151373</employer_phone>
-    <first_name>Jenifer</first_name>
-    <last_name>Mann</last_name>
-    <second_last_name>Mann</second_last_name>
-    <neto_income>1134</neto_income>
-    <occupation>ECONOMIC_ACTIVITY</occupation>
-    <personal_id>29720791F</personal_id>
-    <phone>711830551</phone>
+    <lives_at_registered_address>1</lives_at_registered_address>
+    <secondary_address>
+        <street>Rúa Olmos</street>
+        <city>Poveda de las Cintas</city>
+        <house_number>94</house_number>
+        <postal_code>23013</postal_code>
+    </secondary_address>
+    <neto_income>2000</neto_income>
+    <monthly_expenses>600</monthly_expenses>
     <remuneration_deadline>2017-11-19</remuneration_deadline>
+    <bad_credit_history>0</bad_credit_history>
+    <dependant_count>1</dependant_count>
     <signature>
         <api_key>spain</api_key>
         <timestamp>1510256918</timestamp>
         <hash>1f9158037d701039236cedc1b6efcd74bd0dc1cb</hash>
     </signature>
+    <agree_electronic_services>1</agree_electronic_services>
+    <agree_personal_data_protection>1</agree_personal_data_protection>
+    <agree_data_sharing>1</agree_data_sharing>
+    <agreements.terms_of_service>1</agreements.terms_of_service>
+    <agreements.data_proccessing_policy>1</agreements.data_proccessing_policy>
 </request>
 ```
 
@@ -327,77 +324,38 @@ Response:
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <response>
-	<uuid>c35c40b7-7fba-4dad-bc40-e81652c46c7c</uuid>
-	<first_name>Jenifer</first_name>
-	<last_name>Mann</last_name>
-        <second_last_name>Mann</second_last_name>
-	<email>je@mailinator.com</email>
-	<product>PAYDAY</product>
-	<address_flat_number></address_flat_number>
-	<employer_flat_number></employer_flat_number>
-	<secondaryAddress_flat_number></secondaryAddress_flat_number>
-	<personal_id>29720791F</personal_id>
-	<phone>711830551</phone>
-	<carBrand />
-	<carModel />
-	<carYear />
-	<employer_street></employer_street>
-	<employer_postal_index></employer_postal_index>
-	<employer_house_number></employer_house_number>
-	<phone2 />
-	<employer_phone>723151373</employer_phone>
-	<dependant_count>1</dependant_count>
-	<monthly_expenses>901</monthly_expenses>
-	<neto_income>1134</neto_income>
-	<lives_at_registered_address>1</lives_at_registered_address>
-	<phone_confirmed>0</phone_confirmed>
-	<bad_credit_history />
-	<salary_to_personal_account />
-	<car>NO</car>
-	<ruian />
-	<occupation>ECONOMIC_ACTIVITY</occupation>
-	<marital_status>MARRIED</marital_status>
-	<housing_type>RENTED_APARTMENT_OR_HOUSE</housing_type>
-	<gender>MALE</gender>
-	<education>MASTER</education>
-	<industry></industry>
-	<remuneration_frequency></remuneration_frequency>
-	<bank_account>ES9200219506422297185089</bank_account>
-	<address_postal_index>92139</address_postal_index>
-	<birth_date>1973-09-03</birth_date>
-	<remuneration_deadline>2017-11-19</remuneration_deadline>
-	<employed_since>2009-05-21</employed_since>
-	<address_city>Poveda de las Cintas</address_city>
-	<address_address>Rúa Olmos</address_address>
-	<address_house_number>94</address_house_number>
-	<secondaryAddress_city></secondaryAddress_city>
-	<secondaryAddress_address></secondaryAddress_address>
-	<secondaryAddress_house_number></secondaryAddress_house_number>
-	<secondaryAddress_postal_index></secondaryAddress_postal_index>
-	<employer>Traffic Control</employer>
-	<current_job_position>Businessman</current_job_position>
-	<employer_work_city></employer_work_city>
-	<tax_id_number>3309963272</tax_id_number>
-	<business_registration_date>1994-11-25</business_registration_date>
-	<employment_sector></employment_sector>
-        <address>
-            <street>Rúa Olmos</street>
-            <city>Poveda de las Cintas</city>
-            <house_number>94</house_number>
-            <postal_code>23013</postal_code>
-        </address>
-        <secondary_address>
-            <street></street>
-            <city></city>
-            <house_number></house_number>
-            <postal_code></postal_code>
-        </secondary_address>
-        <employer_address>
-            <street></street>
-            <city></city>
-            <house_number></house_number>
-            <postal_code></postal_code>
-        </employer_address>
+    <uuid>c35c40b7-7fba-4dad-bc40-e81652c46c7c</uuid>
+    <first_name>Rodrigo</first_name>
+    <last_name>Quezada</last_name>
+    <second_last_name>Quezada</second_last_name>
+    <nationality>Spain</nationality>
+    <phone>711830551</phone>
+    <phone_plan>prepaid</phone_plan>
+    <email>jaime.vigil@mailinator.com</email>
+    <personal_id>74180810Z</personal_id>
+    <bank_account>ES2985991120311146424821</bank_account>
+    <occupation>EMPLOYED_INDEFINITE_PERIOD</occupation>
+    <housing_type>RENTED_ROOM</housing_type>
+    <marital_status>MARRIED</marital_status>
+    <education>MASTER</education>
+    <address>
+        <street>Rúa Olmos</street>
+        <city>Poveda de las Cintas</city>
+        <house_number>94</house_number>
+        <postal_code>23013</postal_code>
+    </address>
+    <lives_at_registered_address>1</lives_at_registered_address>
+    <secondary_address>
+        <street>Rúa Olmos</street>
+        <city>Poveda de las Cintas</city>
+        <house_number>94</house_number>
+        <postal_code>23013</postal_code>
+    </secondary_address>
+    <neto_income>2000</neto_income>
+    <monthly_expenses>600</monthly_expenses>
+    <remuneration_deadline>2017-11-19</remuneration_deadline>
+    <bad_credit_history>0</bad_credit_history>
+    <dependant_count>1</dependant_count>
 </response>
 ```
 
@@ -597,13 +555,6 @@ Response:
 | OTHER                      | Other                         | Otro                                                        |
 | MATERNITY_LEAVE            | Materniry leave               | Ama de casa                                                 |
 | BENEFITS                   | Benefits                      | Beneficios sociales                                         |
-
-### car
-
-| value | English | Spanish |
-|-------|---------|---------|
-| YES   | Yes     | Sí      |
-| NO    | No      | No      |
 
 # Versions
 
