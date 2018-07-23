@@ -543,16 +543,11 @@ Response:
 | value                      | English                       | Spanish                                                     |
 |----------------------------|-------------------------------|-------------------------------------------------------------|
 | EMPLOYED_INDEFINITE_PERIOD | Employed indefinitely         | Empleado                                                    |
-| EMPLOYED_SPECIFIED_PERIOD  | Employed for specified period | Contrato de trabajo a plazo fijo                            |
-| WRITTEN_CONTRACT_OR_ORDER  | Written contract or order     | Contrato de comisión / contrato por trabajo específico      |
 | ECONOMIC_ACTIVITY          | Economic activity             | Trabajador por cuenta propia                                |
-| UNEMPLOYED                 | Unemployed                    | Desempleado                                                 |
 | STUDENT                    | Student                       | Estudiante                                                  |
-| PENSIONER1                 | Pensioner                     | Jubilado/Pensionista                                        |
-| PENSIONER2                 | Pensioner                     | Retirado/Jubilado                                           |
-| OTHER                      | Other                         | Otro                                                        |
 | MATERNITY_LEAVE            | Materniry leave               | Ama de casa                                                 |
-| BENEFITS                   | Benefits                      | Beneficios sociales                                         |
+| UNEMPLOYED                 | Unemployed                    | Desempleado                                                 |
+| PENSIONER1                 | Pensioner                     | Jubilado/Pensionista                                        |
 
 # Versions
 
