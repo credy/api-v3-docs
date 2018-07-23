@@ -49,7 +49,7 @@ This method will create or update customer and return customer uuid.
 | second_last_name                | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | Second last name of the customer                           |
 | nationality                     | Required <br /> string (max 255), must match [countries](#countries)                                                                                | Nationality of the customer                                |
 | phone                           | Required <br /> must be valid phone number                                                                                                          | Customer mobile phone number                               |
-| phone_plan                      | Optional <br /> format: PREPAID, CONTRACT                                                                                                           | Phone plan of the customer                                 |
+| phone_plan                      | Required <br /> format: PREPAID, CONTRACT                                                                                                           | Phone plan of the customer                                 |
 | email                           | Required <br /> valid email address                                                                                                                 | Email address                                              |
 | personal_id                     | Required <br /> must be valid DNI                                                                                                                   | DNI                                                        |
 | bank_account                    | Optional <br /> must be valid IBAN, must match [regex](#bank-account-regexp)                                                                        | Bank account                                               |
@@ -123,8 +123,6 @@ first_name - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
 last_name  - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
 
 second_last_name - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
-
-nationality - `/^[a-záéèíñóúüç[:space:]-\']+$/ui`
 
 bank_account - `/(ES|PT).*/`
 
@@ -525,7 +523,7 @@ Response:
 |-------------------|-------------------|-----------------------------|
 | NO_EDUCATION      | No education      | Falta                       |
 | BASIC_SCHOOL      | Basic school      | Primer ciclo de secundaria  |
-| HIGH_SCHOOL       | High school       | Średnie                     |
+| HIGH_SCHOOL       | High school       | Educación secundaria        |
 | BACHELOR          | Bachelor’s degree | Promedio                    |
 | MASTER            | Master            | Maestría                    |
 | PHD               | Ph. D             | Mayor doctorado             |
