@@ -47,11 +47,14 @@ This method will create or update customer and return customer uuid.
 | first_name                      | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | First name of customer                                     |
 | last_name                       | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | Last name of the customer                                  |
 | second_last_name                | Required <br /> string (max 255), must match [regex](#regular-expressions)                                                                          | Second last name of the customer                           |
+| gender                          | Required <br /> format: MALE, FEMALE                                                                                                                | Gender of the customer                                     |         
 | nationality                     | Required <br /> string (max 255), must match [countries](#countries)                                                                                | Nationality of the customer                                |
+| birth_date                      | Required <br /> format: YYYY-MM-DD                                                                                                                  | Birth date of the customer                                 |  
 | phone                           | Required <br /> must be valid phone number                                                                                                          | Customer mobile phone number                               |
 | phone_plan                      | Required <br /> format: PREPAID, CONTRACT                                                                                                           | Phone plan of the customer                                 |
 | email                           | Required <br /> valid email address                                                                                                                 | Email address                                              |
 | personal_id                     | Required <br /> must be valid DNI                                                                                                                   | DNI                                                        |
+| password                        | Required <br /> string                                                                                                                              | Customer password                                          |
 | bank_account                    | Optional <br /> must be valid IBAN, must match [regex](#bank-account-regexp)                                                                        | Bank account                                               |
 | occupation                      | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                            | Occupation                                                 |
 | housing_type                    | Required <br /> for allowed values see [Addendum A](#addendum-a---enums)                                                                            | Housing type                                               |
@@ -61,14 +64,12 @@ This method will create or update customer and return customer uuid.
 | address[city]                   | Required <br /> must match [regex](#regular-expressions)                                                                                            | City                                                       |
 | address[street]                 | Required <br /> free text                                                                                                                           | Street                                                     |
 | address[house_number]           | Required <br /> must match [regex](#regular-expressions)                                                                                            | House number                                               |
-| address[flat_number]            | Optional <br /> free text                                                                                                                           | Flat number                                                |
 | address[postal_code]            | Required <br /> must match [regex](#regular-expressions)                                                                                            | Postal index                                               |
 | lives_at_registered_address     | Optional <br /> boolean; defaults to true                                                                                                           | Is customer’s real address the same as registered address? |
 | secondary_address               | Required <br /> Object                                                                                                                              | Registered address of the customer                         |
 | secondary_address[city]         | Required <br /> free text                                                                                                                           | City                                                       |
 | secondary_address[street]       | Required <br /> free text                                                                                                                           | Street                                                     |
 | secondary_address[house_number] | Required <br /> must match [regex](#regular-expressions)                                                                                            | House number                                               |
-| secondary_address[flat_number]  | Optional <br /> free text                                                                                                                           | Flat number                                                |
 | secondary_address[postal_code]  | Required <br /> must match [regex](#regular-expressions)                                                                                            | Postal index                                               |
 | neto_income                     | Required <br /> numeric                                                                                                                             | Net income                                                 |
 | monthly_expenses                | Required <br /> numeric                                                                                                                             | Monthly expenses                                           |
@@ -154,11 +155,14 @@ Body:
    "first_name":"Rodrigo",
    "last_name":"Quezada",
    "second_last_name":"Quezada",
+   "gender":"MALE",
    "nationality":"Spain",
+   "birth_date":"1985-03-23",
    "phone":"711830551",
    "phone_plan":"prepaid",
    "email":"jaime.vigil@mailinator.com",
    "personal_id":"74180810Z",
+   "password":"485fe9921",
    "bank_account":"ES2985991120311146424821",
    "occupation":"EMPLOYED_INDEFINITE_PERIOD",
    "housing_type":"RENTED_ROOM",
@@ -206,11 +210,14 @@ Response:
    "first_name":"Rodrigo",
    "last_name":"Quezada",
    "second_last_name":"Quezada",
+   "gender":"MALE",
    "nationality":"Spain",
+   "birth_date":"1985-03-23",
    "phone":"711830551",
    "phone_plan":"prepaid",
    "email":"jaime.vigil@mailinator.com",
    "personal_id":"74180810Z",
+   "password":"485fe9921",
    "bank_account":"ES2985991120311146424821",
    "occupation":"EMPLOYED_INDEFINITE_PERIOD",
    "housing_type":"RENTED_ROOM",
@@ -272,11 +279,14 @@ Body:
     <first_name>Rodrigo</first_name>
     <last_name>Quezada</last_name>
     <second_last_name>Quezada</second_last_name>
+    <gender>MALE</gender>
     <nationality>Spain</nationality>
+    <birth_date>1985-03-23</birth_date>
     <phone>711830551</phone>
     <phone_plan>prepaid</phone_plan>
     <email>jaime.vigil@mailinator.com</email>
     <personal_id>74180810Z</personal_id>
+    <password>485fe9921</password>
     <bank_account>ES2985991120311146424821</bank_account>
     <occupation>EMPLOYED_INDEFINITE_PERIOD</occupation>
     <housing_type>RENTED_ROOM</housing_type>
@@ -325,11 +335,14 @@ Response:
     <first_name>Rodrigo</first_name>
     <last_name>Quezada</last_name>
     <second_last_name>Quezada</second_last_name>
+    <gender>MALE</gender>
     <nationality>Spain</nationality>
+    <birth_date>1985-03-23</birth_date>
     <phone>711830551</phone>
     <phone_plan>prepaid</phone_plan>
     <email>jaime.vigil@mailinator.com</email>
     <personal_id>74180810Z</personal_id>
+    <password>485fe9921</password>
     <bank_account>ES2985991120311146424821</bank_account>
     <occupation>EMPLOYED_INDEFINITE_PERIOD</occupation>
     <housing_type>RENTED_ROOM</housing_type>
