@@ -81,9 +81,6 @@ This method will create or update customer and return customer uuid.
 | signature[timestamp]            | Required <br /> unix timestamp – must be UTC +/- 60 seconds                                                                                         | Timestamp when request is made                             |
 | signature[api_key]              | Required                                                                                                                                            | Api key                                                    |
 | signature[hash]                 | Required                                                                                                                                            | A sha1 concatenation of timestamp, api key and secret key  |
-| agree_electronic_services       | Required <br /> Boolean                                                                                                                             | Does customer agree with electronic services               |
-| agree_personal_data_protection  | Required <br /> Boolean                                                                                                                             | Does customer agree with personal data protection ?        | 
-| agree_data_sharing              | Required <br /> Boolean                                                                                                                             | Does customer agree with data sharing ?                    | 
 | agreements.terms_of_service     | Required <br /> Integer [1 - Yes, 0 - No]                                                                                                           | Does customer agree with terms of service?                 |
 | agreements.data_proccessing_policy | Required <br /> Integer [1 - Yes, 0 - No]                                                                                                        | Does customer agree with data processingpolicy             |         
 
@@ -191,9 +188,6 @@ Body:
       "timestamp":1510256918,
       "hash":"1f9158037d701039236cedc1b6efcd74bd0dc1cb"
    },
-   "agree_electronic_services":"1",
-   "agree_personal_data_protection":"1",
-   "agree_data_sharing":"1",
    "agreements.terms_of_service":"1",
    "agreements.data_proccessing_policy":"1"
 }
@@ -315,9 +309,6 @@ Body:
         <timestamp>1510256918</timestamp>
         <hash>1f9158037d701039236cedc1b6efcd74bd0dc1cb</hash>
     </signature>
-    <agree_electronic_services>1</agree_electronic_services>
-    <agree_personal_data_protection>1</agree_personal_data_protection>
-    <agree_data_sharing>1</agree_data_sharing>
     <agreements.terms_of_service>1</agreements.terms_of_service>
     <agreements.data_proccessing_policy>1</agreements.data_proccessing_policy>
 </request>
