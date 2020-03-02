@@ -282,7 +282,7 @@
         }
       },
       "Customer" : {
-        "required" : [ "first_name", "last_name", "second_last_name", "email", "personal_id", "tax_id_number", "phone", "phone_plan", "address", "birth_date", "gender", "marital_status", "bank_account", "nationality", "occupation", "neto_income", "remuneration_deadline", "monthly_expenses", "housing_type", "employed_since", "dependant_count", "employer", "employer_phone", "agreements" ],
+        "required" : [ "first_name", "last_name", "second_last_name", "email", "personal_id", "tax_id_number", "phone", "phone_plan", "address", "birth_date", "gender", "marital_status", "bank_account", "nationality", "occupation", "neto_income", "remuneration_deadline", "monthly_expenses", "housing_type", "employed_since", "dependant_count", "employer", "agreements" ],
         "type" : "object",
         "properties" : {
           "first_name" : {
@@ -338,6 +338,19 @@
             "example" : "MEXICO",
             "enum" : [ "SPAIN", "MEXICO", "GERMANY", "ARGENTINA", "BRAZIL", "BULGARIA", "RUSSIA", "CHILE", "CHINA", "COLOMBIA", "ECUADOR", "PHILIPPINES", "FRANCE", "ITALY", "INDIA", "MOROCCO", "PARAGUAY", "PERU", "PORTUGAL", "POLAND", "OTHER" ]
           },
+          "credit_score": {
+            "type": "string",
+            "example": "EXCELLENT_700_TO_500",
+            "enum": [
+              "EXCELLENT_700_TO_500", "GOOD_650_TO_700", "STABLE_550_TO_650", "LOW_300_TO_550", "DONT_KNOW", "NO_CREDIT_HISTORY" ],
+            "description" : "Required if product === PAYDAY",
+          },
+          "debt_amount": {
+            "type": "string",
+            "example": "200K_TO_400K",
+            "enum": [ "LT_30K", "30K_TO_100K", "100K_TO_200K", "200K_TO_400K", "GT_400K", "NO_DEBT"],
+            "description" : "Required if product === PAYDAY",
+          },
           "dependant_count" : {
             "type" : "integer",
             "format" : "int32",
@@ -370,7 +383,7 @@
           "occupation" : {
             "type" : "string",
             "example" : "WRITTEN_CONTRACT_OR_ORDER",
-            "enum" : [ "EMPLOYED_SPECIFIED_PERIOD,", "EMPLOYED_INDEFINITE_PERIOD,", "WRITTEN_CONTRACT_OR_ORDER,", "SELF_EMPLOYED,", "PENSIONER1,", "STUDENT,", "UNEMPLOYED,", "FREELANCER,", "OWN_BUSINESS,", "MATERNITY_LEAVE" ]
+            "enum" : ["SELF_EMPLOYED", "PENSIONER1", "STUDENT", "UNEMPLOYED", "FREELANCER", "OWN_BUSINESS", "MATERNITY_LEAVE" ]
           },
           "neto_income" : {
             "type" : "integer",
@@ -393,10 +406,6 @@
           "employer" : {
             "type" : "string",
             "example" : "Carrera PLC"
-          },
-          "employer_phone" : {
-            "type" : "string",
-            "example" : "+52 661 529 9433"
           },
           "agreements" : {
             "$ref" : "#/components/schemas/Agreements"
