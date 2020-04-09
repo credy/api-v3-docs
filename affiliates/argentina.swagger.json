@@ -351,11 +351,6 @@
             "example" : "HIGH_SCHOOL",
             "enum" : [ "NO_EDUCATION", "BASIC_SCHOOL", "HIGH_SCHOOL", "BACHELOR", "MASTER", "PHD", "INDUSTRIAL_SCHOOL" ]
           },
-          "notes" : {
-            "type" : "string",
-            "example" : "TRAVEL",
-            "enum" : [ "PURCHASE_OF_FOOD", "BUYING_ELECTRONICS", "CREATE_CREDIT_HISTORY", "SCHOOL_EXPENSES", "UNFORESEEN_EXPENSE", "MEDICAL_EXPENSES", "MAINTENANCE_OR_REPAIR_OF_HOUSE", "PAY_ANOTHER_LOAN", "PAYMENT_OF_SERVICES", "FOR_MY_BUSINESS", "TRAVEL", "OTHER" ]
-          },
           "phone" : {
             "type" : "string",
             "example" : "8101234567"
@@ -384,7 +379,7 @@
           },
           "occupation" : {
             "type" : "string",
-            "example" : "WRITTEN_CONTRACT_OR_ORDER",
+            "example" : "EMPLOYED_INDEFINITE_PERIOD",
             "enum" : [ "EMPLOYED_INDEFINITE_PERIOD", "STUDENT", "MATERNITY_LEAVE", "PENSIONER1", "OWN_BUSINESS", "FREELANCER", "UNEMPLOYED" ]
           },
           "neto_income" : {
@@ -407,20 +402,20 @@
           },
           "employed_since" : {
             "type" : "string",
-            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n",
+            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD",
             "example" : "yyyy-mm-dd"
           },
           "employer" : {
             "type" : "string",
-            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n"
+            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD"
           },
           "current_job_position" : {
             "type" : "string",
-            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n"
+            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD"
           },
           "employer_phone" : {
             "type" : "string",
-            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD\n- EMPLOYED_SPECIFIED_PERIOD\n- WRITTEN_CONTRACT_OR_ORDER\n",
+            "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD",
             "example" : "8101234567"
           },
           "employment_place" : {
@@ -465,21 +460,6 @@
           "has_loan" : {
             "type" : "boolean",
             "example" : false
-          },
-          "carBrand" : {
-            "type" : "string",
-            "description" : "required when `product` is:\n- CAR\n",
-            "example" : "Audi"
-          },
-          "carModel" : {
-            "type" : "string",
-            "description" : "required when `product` is:\n- CAR\n",
-            "example" : "q8"
-          },
-          "carYear" : {
-            "type" : "string",
-            "description" : "required when `product` is:\n- CAR\n",
-            "example" : "2010"
           },
           "bad_credit_history" : {
             "type" : "boolean",
