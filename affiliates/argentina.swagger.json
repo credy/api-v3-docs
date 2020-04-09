@@ -298,7 +298,7 @@
         }
       },
       "Customer" : {
-        "required" : [ "address", "agreements", "bank_account", "birth_date", "credit_score", "dependant_count", "education", "email", "first_name", "gender", "has_loan", "housing_type", "last_name", "lives_at_registered_address", "marital_status", "monthly_expenses", "nationality", "neto_income", "occupation", "password", "personal_id", "phone", "phone_plan", "signature" ],
+        "required" : [ "address", "agreements", "bank_account", "birth_date", "credit_score", "dependant_count", "education", "email", "first_name", "gender", "has_loan", "housing_type", "last_name", "lives_at_registered_address", "marital_status", "monthly_expenses", "nationality", "neto_income", "occupation", "personal_id", "phone", "phone_plan", "signature" ],
         "type" : "object",
         "properties" : {
           "first_name" : {
@@ -323,10 +323,6 @@
             "type" : "string",
             "description" : "Format: Y-m-d",
             "example" : "1990-01-01"
-          },
-          "password" : {
-            "type" : "string",
-            "example" : "randomPassword"
           },
           "email" : {
             "type" : "string",
