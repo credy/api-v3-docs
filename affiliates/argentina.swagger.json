@@ -298,7 +298,7 @@
         }
       },
       "Customer" : {
-        "required" : [ "address", "agreements", "bank_account", "birth_date", "credit_score", "dependant_count", "education", "email", "first_name", "gender", "has_loan", "housing_type", "last_name", "lives_at_registered_address", "marital_status", "monthly_expenses", "nationality", "neto_income", "occupation", "personal_id", "phone", "phone_plan", "signature" ],
+        "required" : [ "address", "agreements", "bank_account", "birth_date", "credit_score", "dependant_count", "education", "email", "first_name", "gender", "has_loan", "housing_type", "last_name", "lives_at_registered_address", "marital_status", "monthly_expenses", "nationality", "neto_income", "occupation", "personal_id", "phone", "phone_plan", "second_last_name" ],
         "type" : "object",
         "properties" : {
           "first_name" : {
@@ -309,6 +309,10 @@
             "type" : "string",
             "example" : "Posada"
           },
+          "second_last_name" : {
+            "type" : "string",
+            "example" : "Pérez"
+          }
           "nationality" : {
             "type" : "string",
             "description" : "max length: 2",
@@ -414,50 +418,17 @@
             "description" : "required when `occupation` is in:\n- EMPLOYED_INDEFINITE_PERIOD",
             "example" : "8101234567"
           },
-          "employment_place" : {
-            "type" : "string",
-            "enum" : [ "OFFICE", "FACTORY", "HOME", "STREET_STALL", "DOOR_TO_DOOR", "ON_THE_STREET", "FIXED_PREMISES" ]
-          },
           "credit_score" : {
             "type" : "string",
             "example" : "GOOD_650_TO_749",
             "enum" : [ "EXCELLENT_MORE_THAN_750", "GOOD_650_TO_749", "STABLE_520_TO_649", "LOW_300_TO_619", "DONT_KNOW", "NO_CREDIT_HISTORY" ]
-          },
-          "salary_to_personal_account" : {
-            "type" : "boolean",
-            "description" : "required when `occupation` is not in  :\n- UNEMPLOYED\n",
-            "example" : true
-          },
-          "tax_id_number" : {
-            "type" : "string",
-            "example" : "MACJ170517PRN"
           },
           "business_registration_date" : {
             "type" : "string",
             "description" : "required when `occupation` is in:\n- ECONOMIC_ACTIVITY\n",
             "example" : "yyyy-mm-dd"
           },
-          "university_name" : {
-            "type" : "string",
-            "description" : "required when `occupation` is in:\n- OCCUPATION_STUDENT\n"
-          },
-          "university_city" : {
-            "type" : "string",
-            "description" : "required when `occupation` is in:\n- OCCUPATION_STUDENT\n"
-          },
-          "credit_card_verification" : {
-            "type" : "string",
-            "description" : "Format: /^\\d{4}$/"
-          },
-          "has_beneficiary" : {
-            "type" : "boolean",
-            "example" : false
-          },
           "has_loan" : {
-            "type" : "boolean",
-            "example" : false
-          },
-          "bad_credit_history" : {
             "type" : "boolean",
             "example" : false
           },
@@ -470,7 +441,7 @@
         }
       },
       "Lead" : {
-        "required" : [ "ip_address", "loan_period", "loan_purpose", "loan_sum", "signature" ],
+        "required" : [ "ip_address", "loan_period", "loan_purpose", "loan_sum" ],
         "type" : "object",
         "properties" : {
           "loan_sum" : {
