@@ -312,7 +312,7 @@
           "second_last_name" : {
             "type" : "string",
             "example" : "Pérez"
-          }
+          },
           "nationality" : {
             "type" : "string",
             "description" : "max length: 2",
