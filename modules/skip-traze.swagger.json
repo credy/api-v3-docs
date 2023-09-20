@@ -1,0 +1,324 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "SkipTraze Documentation",
+    "description" : "# Introduction \n\nCredy is a company that specializes on the quality lead generation. \\\nThis document further describes how to receive customer data (email, phone, address).\\\nIf you have any questions, please do not hesitate to contact the IT manager at [it@credy.eu](mailto:it@credy.eu).\n\n## General information\n\nProduction URL: [https://api.credy.eu/v3/](https://api.credy.eu/v3/)\n\nStaging URL: [http://api.staging.credy.eu/v3/](http://api.staging.credy.eu/v3/)\n\nAPI supports post fields, XML and JSON.\n\n## Authorization\nAuthorization is performed with OAuth 2.0 Client Credentials Grant.\nWhen requesting token, the client key and secret key must be sent in request body.\nClient key and secret key will be assigned to you by Credy.\nThe requests to api must be authenticated with [bearer token](https://tools.ietf.org/html/rfc6749#section-7.1).\n## SkipTraze flow\n\n1. Request is sent to /skipTraze\n\n2. If request is successful, customer data will be returned in JSON format.\n",
+    "version" : "3.0.0"
+  },
+  "security": [{
+    "oAuth": []
+  }],
+  "paths" : {
+    "/skipTraze" : {
+      "post" : {
+        "description" : "Get customer data",
+        "requestBody" : {
+          "description" : "Request info",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SkipTraze"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SkipTraze"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Customer data",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                "$ref" : "#/components/schemas/SkipTrazeResponse"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                "$ref" : "#/components/schemas/SkipTrazeResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                "$ref" : "#/components/schemas/UnauthorizedResponse"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                "$ref" : "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Validation error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                "$ref" : "#/components/schemas/ValidationErrors"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                "$ref" : "#/components/schemas/ValidationErrors"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "oAuth" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+      "securitySchemes": {
+      "oAuth": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "/token",
+            "scopes": { 
+            "allow_custom_pingtree": ""
+            }
+          }
+        }
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+      },
+      "schemas" : {
+      "ResponseData" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "oneOf": [
+              {
+                "type" : "object",
+                "properties" : {
+                  "city" : {
+                    "type" : "string",
+                    "example" : "Visaginas",
+                    "maxLength": 45
+                  },
+                  "postalCode" : {
+                    "type" : "string",
+                    "example" : "03724",
+                    "maxLength": 45
+                  },
+                  "street" : {
+                    "type" : "string",
+                    "example" : "Konstitucijos",
+                    "maxLength": 45
+                  },
+                  "houseNumber" : {
+                    "type" : "string",
+                    "example" : "119",
+                    "maxLength": 45
+                  },
+                  "flatNumber" : {
+                    "type" : "string",
+                    "example" : "6",
+                    "maxLength": 255
+                  }
+                }
+              },
+              {
+                "type" : "string"
+              }
+            ],
+            "example" : {
+              "city": "Visaginas",
+              "postalCode": "03724",
+              "street": "Konstitucijos",
+              "houseNumber": "119",
+              "flatNumber": "6"
+            },
+            "description": "Either an object in case of address or string for email and phone"
+          },
+          "hash" : {
+            "type" : "string",
+            "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "example" : "2022-12-21 06:46:54",
+            "description": "application creation time (Y-m-d H:i:s)"
+          }
+        }
+      },
+      "SkipTraze" : {
+        "required" : [ "personalCode", "country", "type" ],
+        "type" : "object",
+        "properties" : {
+          "personalCode" : {
+            "type" : "string",
+            "example" : "30969649B",
+            "maxLength": 255
+          },
+          "country" : {
+            "type" : "string",
+            "example" : "ES"
+          },
+          "type" : {
+            "type" : "string",
+            "example" : "address",
+            "enum" : [ "address", "phone", "email" ]
+          },
+          "timestamp" : {
+            "type" : "string",
+            "example" : "2022-12-21 06:46:54",
+            "description": "application created datetime >= timestamp (Y-m-d H:i:s)"
+          },
+          "excluding" : {
+            "type" : "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "example" : [ "08780", "35850", "28775" ],
+            "description": "for address it matches by postal code"
+          }
+        },
+        "xml" : {
+          "name" : "request"
+        }
+      },
+      "ValidationErrors" : {
+        "xml" : {
+          "name" : "response"
+        },
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Type is invalid"
+            }
+          }
+        }
+      },
+      "SkipTrazeResponse" : {
+        "xml" : {
+          "name" : "response"
+        },
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
+          },
+          "success" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "ok"
+          },
+          "data" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ResponseData"
+            }
+          }
+        }
+      },
+      "UnauthorizedResponse" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "Unauthorized"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Your request was made with invalid credentials."
+          },
+          "code" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 0
+          },
+          "status" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 401
+          }
+        },
+        "xml" : {
+          "name" : "response"
+        }
+      }
+    },
+    "responses" : {
+      "SkipTrazeSuccess" : {
+        "description" : "Customer data",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SkipTrazeResponse"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SkipTrazeResponse"
+            }
+          }
+        }
+      },
+      "ValidationError" : {
+        "description" : "Validation error",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ValidationErrors"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ValidationErrors"
+            }
+          }
+        }
+      },
+      "Unauthorized" : {
+        "description" : "Unauthorized",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UnauthorizedResponse"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UnauthorizedResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/credy/skip-traze-docs/3.0.0"
+  } ]
+}
