@@ -226,14 +226,6 @@
             "type" : "string",
             "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
           },
-          "success" : {
-            "type" : "boolean",
-            "example" : true
-          },
-          "message" : {
-            "type" : "string",
-            "example" : "ok"
-          },
           "data" : {
             "type" : "array",
             "items" : {
