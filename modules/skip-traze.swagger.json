@@ -9,7 +9,7 @@
     "oAuth": []
   }],
   "paths" : {
-    "/skipTraze" : {
+    "/external-api/skip-traze/get-history" : {
       "post" : {
         "description" : "Get customer data",
         "requestBody" : {
@@ -81,7 +81,7 @@
     }
   },
   "components" : {
-      "securitySchemes": {
+    "securitySchemes": {
       "oAuth": {
         "type": "oauth2",
         "flows": {
@@ -97,64 +97,83 @@
         "type": "http",
         "scheme": "bearer"
       }
-      },
-      "schemas" : {
+    },
+    "schemas" : {
       "ResponseData" : {
-        "type" : "object",
         "properties" : {
-          "result" : {
-            "oneOf": [
-              {
-                "type" : "object",
-                "properties" : {
-                  "city" : {
-                    "type" : "string",
-                    "example" : "Visaginas",
-                    "maxLength": 45
-                  },
-                  "postalCode" : {
-                    "type" : "string",
-                    "example" : "03724",
-                    "maxLength": 45
-                  },
-                  "street" : {
-                    "type" : "string",
-                    "example" : "Konstitucijos",
-                    "maxLength": 45
-                  },
-                  "houseNumber" : {
-                    "type" : "string",
-                    "example" : "119",
-                    "maxLength": 45
-                  },
-                  "flatNumber" : {
-                    "type" : "string",
-                    "example" : "6",
-                    "maxLength": 255
-                  }
+          "single" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties": {
+                "city" : {
+                  "type" : "string",
+                  "example" : "Visaginas",
+                  "maxLength": 45
+                },
+                "postalCode" : {
+                  "type" : "string",
+                  "example" : "03724",
+                  "maxLength": 45
+                },
+                "street" : {
+                  "type" : "string",
+                  "example" : "Konstitucijos",
+                  "maxLength": 45
+                },
+                "houseNumber" : {
+                  "type" : "string",
+                  "example" : "119",
+                  "maxLength": 45
+                },
+                "flatNumber" : {
+                  "type" : "string",
+                  "example" : "6",
+                  "maxLength": 255
                 }
-              },
-              {
-                "type" : "string"
               }
-            ],
-            "example" : {
-              "city": "Visaginas",
-              "postalCode": "03724",
-              "street": "Konstitucijos",
-              "houseNumber": "119",
-              "flatNumber": "6"
-            },
-            "description": "Either an object in case of address or string for email and phone"
+            }
           },
-          "hash" : {
-            "type" : "string",
-            "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
-          },
-          "timestamp" : {
-            "type" : "string",
-            "example" : "2022-12-21 06:46:54",
-            "description": "application creation time (Y-m-d H:i:s)"
+          "combo" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example" : "zcarmona@mailinator.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example" : "621597823"
+                },
+                "city" : {
+                  "type" : "string",
+                  "example" : "Visaginas",
+                  "maxLength": 45
+                },
+                "postalCode" : {
+                  "type" : "string",
+                  "example" : "03724",
+                  "maxLength": 45
+                },
+                "street" : {
+                  "type" : "string",
+                  "example" : "Konstitucijos",
+                  "maxLength": 45
+                },
+                "houseNumber" : {
+                  "type" : "string",
+                  "example" : "119",
+                  "maxLength": 45
+                },
+                "flatNumber" : {
+                  "type" : "string",
+                  "example" : "6",
+                  "maxLength": 255
+                }
+              }
+            }
           }
         }
       },
@@ -172,16 +191,50 @@
             "example" : "ES"
           },
           "type" : {
-            "type" : "string",
-            "example" : "address",
-            "enum" : [ "address", "phone", "email" ]
+            "oneOf" : [
+              {
+                "type" : "array",
+                "items": {
+                  "type": "string",
+                  "example" : "address",
+                  "enum" : [ "address", "phone", "email" ]
+                }
+              },
+              {
+                "type" : "string",
+                "example" : "email",
+                "enum" : [ "address", "phone", "email" ]
+              }
+            ]
+          },
+          "phoneMaxItems" : {
+            "type" : "integer",
+            "example" : 2,
+            "minimum" : 1
+          },
+          "emailMaxItems" : {
+            "type" : "integer",
+            "example" : 2,
+            "minimum" : 1
+          },
+          "addressMaxItems" : {
+            "type" : "integer",
+            "example" : 1,
+            "minimum" : 1
           },
           "timestamp" : {
             "type" : "string",
-            "example" : "2022-12-21 06:46:54",
-            "description": "application created datetime >= timestamp (Y-m-d H:i:s)"
+            "example" : "2022-12-21 06:46:54"
           },
-          "excluding" : {
+          "excludingEmail" : {
+            "type" : "array",
+            "items": {
+              "type": "string"
+            },
+            "example" : [ "zcarmona@mailinator.com", "victor45@mailinator.com", "banuelos.jose@mailinator.com" ],
+            "description": "Excludes matching emails from result"
+          },
+          "excludingPostalCode" : {
             "type" : "array",
             "items": {
               "oneOf": [
@@ -193,8 +246,23 @@
                 }
               ]
             },
-            "example" : [ "08780", "35850", "28775" ],
-            "description": "for address it matches by postal code"
+            "example" : [ "08780", 35850, "28775" ],
+            "description": "Excludes matching postal codes from result"
+          },
+          "excludingPhone" : {
+            "type" : "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "example" : [ "621597823", 621527709, "621 559 317" ],
+            "description": "Excludes matching phone numbers from result"
           }
         },
         "xml" : {
@@ -205,13 +273,17 @@
         "xml" : {
           "name" : "response"
         },
-        "type": "object",
-        "properties": {
-          "field": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "example": "Type is invalid"
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "field" : {
+              "type" : "string",
+              "example" : "personalCode"
+            },
+            "message" : {
+              "type" : "string",
+              "example" : "Personal Code cannot be blank."
             }
           }
         }
@@ -227,10 +299,7 @@
             "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
           },
           "data" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ResponseData"
-            }
+            "$ref" : "#/components/schemas/ResponseData"
           }
         }
       },
