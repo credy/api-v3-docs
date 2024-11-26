@@ -1,9 +1,9 @@
 {
     "openapi" : "3.0.0",
     "info" : {
-      "title" : "Argentina Affiliate Documentation",
-       "description" : "# Introduction \n\nCredy is a company that specializes on the quality lead generation. \\\nThis document further describes fdfhow to integrate API to send leads to Credy.\\\nIf you have any questions, please do not hesitate to contact the IT manager at [it@credy.eu](mailto:it@credy.eu).\n\n## General information\n\nProduction URL: [https://api.credy.eu/v3/](https://api.credy.eu/v3/)\n\nStaging URL: [http://api.staging.credy.eu/v3/](http://api.staging.credy.eu/v3/)\n\nAPI supports post fields, XML and JSON.\n\nTo get response error messages in Spanish, \"Accept-Language\" header’s value must be set to according ISO code. Ex: `es` or `es-AR`.\n## Authorization\nAuthorization is performed with OAuth 2.0 Client Credentials Grant.\nWhen requesting token, the client key and secret key must be sent in request body.\nClient key and secret key will be assigned to you by Credy.\nThe requests to api must be authenticated with [bearer token](https://tools.ietf.org/html/rfc6749#section-7.1).\n## Lead registration flow\n\n1. Request is sent to /v3/customers\n\n2. If request is successful, customer uuid must be stored\n\n3. Request is sent to /v3/leads with previously stored customer uuid in query parameter \"customer\" *ex. /v3/leads?customer=a3ff7c20-e9e8-43a0-bfb7-71a5cf43b8d3* \n4. When the lead is accepted by api (under_investigation is received from POST lead), please redirect the customer to [https://www.credy.com.ar/loading/?lead={UUID}](https://www.credy.com.ar/loading/?lead={UUID}) (where {UUID} is replaced by the uuid that you receive from POST lead)\n",
-      "version" : "3.0.11"
+      "title" : "Philippines Affiliate Documentation",
+      "description" : "# Introduction \n\nCredy is a company that specializes on the quality lead generation. \\\nThis document further describes how to integrate API to send leads to Credy.\\\nIf you have any questions, please do not hesitate to contact the IT manager at [it@credy.eu](mailto:it@credy.eu).\n\n## General information\n\nProduction URL: [https://api.credy.eu/v3/](https://api.credy.eu/v3/)\n\nStaging URL: [http://api.staging.credy.eu/v3/](http://api.staging.credy.eu/v3/)\n\nAPI supports post fields, XML and JSON.\n\nTo get response error messages in english, \"Accept-Language\" header’s value must be set to according ISO code. Ex: `en-PH`.\n## Authorization\nAuthorization is performed with OAuth 2.0 Client Credentials Grant.\nClient key and secret key will be assigned to you by Credy.\n## Lead registration flow\n\n1. Request is sent to /v3/customers\n\n2. If request is successful, customer uuid must be stored\n\n3. Request is sent to /v3/leads with previously stored customer uuid in query parameter \"customer\" *ex. /v3/leads?customer=a3ff7c20-e9e8-43a0-bfb7-71a5cf43b8d3* \n4. When the lead is accepted by api (under_investigation is received from POST lead), please redirect the customer to [https://www.credy.ph/loading/?lead={UUID}](https://www.credy.ph/loading/?lead={UUID}) (where {UUID} is replaced by the uuid that you receive from POST lead)\n",
+      "version" : "3.0.0"
     },
     "servers" : [ {
       "url" : "http://api.staging.credy.eu/v3/",
@@ -22,14 +22,14 @@
           "parameters" : [ {
             "name" : "Accept-Language",
             "in" : "header",
-            "description" : "To get response error messages in Spanish, header’s value must be set to according ISO code. Ex: `es` or `es-AR`.",
+            "description" : "To get response error messages in english, header’s value must be set to according ISO code. Ex: `en-PH`.",
             "required" : false,
             "style" : "simple",
             "explode" : false,
             "schema" : {
               "format" : "string"
             },
-            "example" : "es-AR"
+            "example" : "en-PH"
           } ],
           "requestBody" : {
             "description" : "Customer info",
@@ -102,17 +102,6 @@
         "post" : {
           "description" : "Register lead",
           "parameters" : [ {
-            "name" : "Accept-Language",
-            "in" : "header",
-            "description" : "To get response error messages in Spanish, header’s value must be set to according ISO code. Ex: `es` or `es-AR`.",
-            "required" : false,
-            "style" : "simple",
-            "explode" : false,
-            "schema" : {
-              "format" : "string"
-            },
-            "example" : "id-ID"
-          }, {
             "name" : "customer",
             "in" : "query",
             "description" : "Customer uuid from `/customers` response",
@@ -190,46 +179,6 @@
             "oAuth" : [ "allow_custom_pingtree" ]
           } ]
         }
-      },
-      "/country/price-list" : {
-        "get" : {
-          "description" : "Get lenders prices",
-          "responses" : {
-            "200" : {
-              "description" : "Lenders prices",
-              "content" : {
-                "application/json" : {
-                  "schema" : {
-                    "$ref" : "#/components/schemas/CountryPricesResponse"
-                  }
-                },
-                "application/xml" : {
-                  "schema" : {
-                    "$ref" : "#/components/schemas/CountryPricesResponse"
-                  }
-                }
-              }
-            },
-            "401" : {
-              "description" : "Lenders prices",
-              "content" : {
-                "application/json" : {
-                  "schema" : {
-                    "$ref" : "#/components/schemas/CountryPricesResponse"
-                  }
-                },
-                "application/xml" : {
-                  "schema" : {
-                    "$ref" : "#/components/schemas/CountryPricesResponse"
-                  }
-                }
-              }
-            }
-          },
-          "security" : [ {
-            "oAuth" : [ "get_country_price_list" ]
-          } ]
-        }
       }
     },
     "components" : {
@@ -238,7 +187,7 @@
           "type": "oauth2",
           "flows": {
             "clientCredentials": {
-              "tokenUrl": "/token",
+              "tokenUrl": "token",
               "scopes": { 
                 "allow_custom_pingtree": "",
                 "get_country_price_list": ""
@@ -252,102 +201,46 @@
         }
       },
       "schemas" : {
-        "PrimaryAddress" : {
-          "required" : [ "city", "postal_code" ],
-          "type" : "object",
-          "properties" : {
-            "postal_code" : {
-              "type" : "string",
-              "description" : "Format: /^[A-Z]{1}[0-9]{4}$/",
-              "example" : "A1234",
-              "maxLength": 45
-            },
-            "city" : {
-              "type" : "string",
-              "example" : "La Camella",
-              "maxLength": 45
-            }
-          }
-        },
         "Agreements" : {
           "type" : "object",
           "additionalProperties" : {
             "$ref" : "#/components/schemas/Agreement"
           },
           "example" : {
-            "terms_of_service" : true,
-            "data_proccessing_policy" : true
+            "terms_of_service" : true
           }
         },
         "Agreement" : {
           "type" : "boolean"
         },
         "Customer" : {
-          "required" : [ "address", "agreements", "birth_date", "credit_score", "email", "first_name", "gender", "has_loan", "last_name", "neto_income", "occupation", "personal_id", "phone", "second_last_name", "bank_account" ],
+          "required" : ["first_name", "last_name", "birth_date", "email", "phone", "agreements" ],
           "type" : "object",
           "properties" : {
             "first_name" : {
               "type" : "string",
-              "example" : "Cristian",
+              "example" : "Juan",
+              "description" : "First name \\\nMust match regex: `/^([a-zñ]+[\\s\\-\\']?)+$/ui` \n",
               "maxLength": 255
             },
             "last_name" : {
               "type" : "string",
-              "example" : "Posada",
+              "example" : "Dela Cruz",
+              "description" : "Last name \\\nMust match regex: `/^([a-zñ]+[\\s\\-\\']?)+$/ui` \n",
               "maxLength": 255
-            },
-            "second_last_name" : {
-              "type" : "string",
-              "example" : "Posada"
-            },
-            "gender" : {
-              "type" : "string",
-              "example" : "MALE",
-              "enum" : [ "MALE", "FEMALE" ]
             },
             "birth_date" : {
               "type" : "string",
               "description" : "Format: Y-m-d",
-              "example" : "1990-01-01"
+              "example" : "1990-01-21"
             },
             "email" : {
               "type" : "string",
-              "example" : "jlorente@mailinator.com"
-            },
-            "personal_id" : {
-              "type" : "string",
-              "example" : "12345678"
+              "example" : "juan.cruz@mailinator.com"
             },
             "phone" : {
               "type" : "string",
-              "example" : "8101234567"
-            },
-            "address" : {
-              "$ref" : "#/components/schemas/PrimaryAddress"
-            },
-            "occupation" : {
-              "type" : "string",
-              "example" : "EMPLOYED_INDEFINITE_PERIOD",
-              "enum" : [ "EMPLOYED_INDEFINITE_PERIOD", "STUDENT", "MATERNITY_LEAVE", "PENSIONER1", "OWN_BUSINESS", "FREELANCER", "UNEMPLOYED" ]
-            },
-            "neto_income" : {
-              "type" : "integer",
-              "format" : "int32",
-              "example" : 1500
-            },
-            "credit_score" : {
-              "type" : "string",
-              "example" : "GOOD_650_TO_749",
-              "enum" : [ "EXCELLENT_MORE_THAN_750", "GOOD_650_TO_749", "STABLE_520_TO_649", "LOW_300_TO_519", "DONT_KNOW", "NO_CREDIT_HISTORY" ]
-            },
-            "has_loan" : {
-              "type" : "boolean",
-              "example" : false
-            },
-            "bank_account": {
-              "type": "string",
-              "description": "CBU (Clave Bancaria Uniforme)",
-              "example": "0077517957401089615509"
+              "example" : "+63 912 345 6789"
             },
             "agreements" : {
               "$ref" : "#/components/schemas/Agreements"
@@ -358,7 +251,7 @@
           }
         },
         "Lead" : {
-          "required" : [ "ip_address", "loan_period", "loan_purpose", "loan_sum" ],
+          "required" : [ "ip_address", "loan_period", "loan_sum" ],
           "type" : "object",
           "properties" : {
             "loan_sum" : {
@@ -369,7 +262,7 @@
             },
             "loan_period" : {
               "type" : "integer",
-              "description" : "Term for credit requested in days. If you need to pass it in months, please multiply the amount of months by 30 (months * 30).",
+              "description" : "Term for credit requested in days. If you need to pass it in months, please multiply the amount of months by 30 (months * 30)",
               "format" : "int32",
               "example" : 30
             },
@@ -378,13 +271,9 @@
               "description" : "IP address of customer",
               "example" : "192.168.0.255"
             },
-            "loan_purpose" : {
-              "type" : "string",
-              "example" : "Wedding"
-            },
             "pingtree" : {
               "type" : "array",
-              "description" : "Custom lenders order. Requires `allow_custom_pingtree` oAuth scope",
+              "description" : "Custom lenders order. Requires `allow_custom_pingtree` oAuth scope.",
               "items" : {
                 "type" : "string",
                 "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
@@ -456,21 +345,12 @@
               "type" : "array",
               "provider_redirect_url" : {
                 "type" : "string",
-                "example" : "https://www.credy.com.ar/loading/?lead=b3345507-8298-4bd1-843a-6a968e593f00"
+                "example" : "https://www.credy.ph/loading/?lead=b3345507-8298-4bd1-843a-6a968e593f00"
               }
             }
           },
           "xml" : {
             "name" : "response"
-          }
-        },
-        "CountryPricesResponse" : {
-          "type" : "array",
-          "xml" : {
-            "name" : "response"
-          },
-          "items" : {
-            "$ref" : "#/components/schemas/CountryPricesResponse_inner"
           }
         },
         "UnauthorizedResponse" : {
@@ -511,44 +391,6 @@
               "example" : "Email address is invalid"
             }
           }
-        },
-        "CountryPricesResponse_inner" : {
-          "type" : "object",
-          "properties" : {
-            "name" : {
-              "type" : "string",
-              "example" : "Lender 1"
-            },
-            "uiid" : {
-              "type" : "string",
-              "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
-            },
-            "prices" : {
-              "type" : "array",
-              "items" : {
-                "type" : "object",
-                "additionalProperties" : {
-                  "type" : "object",
-                  "properties" : {
-                    "price" : {
-                      "type" : "string",
-                      "example" : "12.40"
-                    },
-                    "currency" : {
-                      "type" : "string",
-                      "example" : "EUR"
-                    }
-                  }
-                },
-                "example" : {
-                  "accepted" : {
-                    "price" : "12.40",
-                    "currency" : "EUR"
-                  }
-                }
-              }
-            }
-          }
         }
       },
       "responses" : {
@@ -578,21 +420,6 @@
             "application/xml" : {
               "schema" : {
                 "$ref" : "#/components/schemas/LeadResponse"
-              }
-            }
-          }
-        },
-        "CountryPricesResponse" : {
-          "description" : "Lenders prices",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/CountryPricesResponse"
-              }
-            },
-            "application/xml" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/CountryPricesResponse"
               }
             }
           }
@@ -632,14 +459,14 @@
         "AcceptLanguageHeader" : {
           "name" : "Accept-Language",
           "in" : "header",
-          "description" : "To get response error messages in Spanish, header’s value must be set to according ISO code. Ex: `es` or `es-AR`.",
+          "description" : "To get response error messages in english, header’s value must be set to according ISO code. Ex: `en-PH`.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
             "format" : "string"
           },
-          "example" : "id-ID"
+          "example" : "en-PH"
         },
         "CustomerUuid" : {
           "name" : "customer",
