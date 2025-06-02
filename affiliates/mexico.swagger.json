@@ -310,7 +310,7 @@
         "type" : "boolean"
       },
       "Customer" : {
-        "required" : [ "first_name", "last_name", "second_last_name", "email", "personal_id", "tax_id_number", "phone", "phone_plan", "address", "birth_date", "gender", "marital_status", "bank_account", "nationality", "occupation", "neto_income", "remuneration_deadline", "monthly_expenses", "housing_type", "dependant_count", "agreements", "credit_score", "has_loan", "car" ],
+        "required" : [ "first_name", "last_name", "second_last_name", "email", "personal_id", "tax_id_number", "phone", "address", "birth_date", "gender", "marital_status", "bank_account", "nationality", "occupation", "neto_income", "monthly_expenses", "agreements", "credit_score", "has_loan", "car" ],
         "type" : "object",
         "properties" : {
           "first_name" : {
@@ -372,11 +372,6 @@
             "example" : "MX",
             "enum" : [ "ES", "MX", "AL", "AR", "BR", "BU", "RU" ]
           },
-          "dependant_count" : {
-            "type" : "integer",
-            "format" : "int32",
-            "example" : 0
-          },
           "bad_credit_history" : {
             "type" : "boolean"
           },
@@ -388,18 +383,8 @@
             "type" : "string",
             "example" : "+52 871 253 7087"
           },
-          "phone_plan" : {
-            "type" : "string",
-            "example" : "PREPAID",
-            "enum" : [ "PREPAID", "CONTRACT" ]
-          },
           "address" : {
             "$ref" : "#/components/schemas/PrimaryAddress"
-          },
-          "housing_type" : {
-            "type" : "string",
-            "example" : "RENTED_ROOM",
-            "enum" : [ "RENTED_ROOM", "RENTED_APARTMENT_OR_HOUSE", "OWN_HOUSE_OR_APARTMENT", "WITH_PARENTS" ]
           },
           "occupation" : {
             "type" : "string",
@@ -415,12 +400,6 @@
             "type" : "integer",
             "format" : "int32",
             "example" : 900
-          },
-          "remuneration_deadline" : {
-            "type" : "string",
-            "example" : "2023-04-18",
-            "format" : "date",
-            "pattern" : "^([12][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]))$"
           },
           "employed_since" : {
             "type" : "string",
