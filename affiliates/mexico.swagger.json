@@ -278,15 +278,18 @@
           },
           "region" : {
             "type" : "string",
-            "example" : "Customer region"
+            "description": "state (estado)",
+            "example" : "Hidalgo"
           },
           "county" : {
             "type" : "string",
-            "example" : "Customer county"
+            "description": "municipality (municipio)",
+            "example" : "Actopan"
           },
           "district" : {
+            "description": "locality, neighborhood (colonia), or village (pueblo)",
             "type" : "string",
-            "example" : "Customer district"
+            "example" : "Los Frailes"
           },
           "colony" : {
             "type" : "string",
