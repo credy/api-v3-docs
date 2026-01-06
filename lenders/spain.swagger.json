@@ -556,9 +556,9 @@
       },
       "PrimaryAddress" : {
         "type" : "object",
-        "required" : [ "postal_code", "city", "street", "house_number" ],
+        "required" : [ "postal_index", "city", "street", "house_number" ],
         "properties" : {
-          "postal_code" : {
+          "postal_index" : {
             "type" : "string",
             "example" : "63068",
             "description" : "Format: /^[0-9]{5}$/",
@@ -588,9 +588,9 @@
       },
       "SecondaryAddress" : {
         "type" : "object",
-        "required" : [ "postal_code", "city", "street", "house_number", "flat_number" ],
+        "required" : [ "postal_index", "city", "street", "house_number", "flat_number" ],
         "properties" : {
-          "postal_code" : {
+          "postal_index" : {
             "type" : "string",
             "example" : "63068",
             "description" : "Format: /^[0-9]{5}$/"
@@ -615,9 +615,9 @@
       },
       "ContactAddress" : {
         "type" : "object",
-        "required" : [ "postal_code", "city", "street", "house_number", "flat_number" ],
+        "required" : [ "postal_index", "city", "street", "house_number", "flat_number" ],
         "properties" : {
-          "postal_code" : {
+          "postal_index" : {
             "type" : "string",
             "example" : "63068",
             "description" : "Format: /^[0-9]{5}$/"
