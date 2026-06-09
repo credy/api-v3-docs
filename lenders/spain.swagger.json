@@ -291,7 +291,7 @@
       },
       "Customer" : {
         "type" : "object",
-        "required" : [ "first_name", "last_name", "gender", "password", "birth_date", "personal_id", "bank_account", "marital_status", "nationality", "dependant_count", "email", "phone", "phone_plan", "address", "lives_at_registered_address", "housing_type", "neto_income", "monthly_expenses", "education", "occupation", "agreements", "signature" ],
+        "required" : [ "first_name", "last_name", "gender", "password", "birth_date", "personal_id", "bank_account", "marital_status", "nationality", "dependant_count", "email", "phone", "phone_plan", "address", "lives_at_registered_address", "housing_type", "neto_income", "monthly_expenses", "occupation", "agreements", "signature" ],
         "properties" : {
           "first_name" : {
             "type" : "string",
@@ -344,11 +344,6 @@
             "type" : "string",
             "example" : "ES9410880893679146196755",
             "description" : "Format: /(ES|PT).*/"
-          },
-          "education" : {
-            "type" : "string",
-            "enum" : [ "NO_EDUCATION", "BASIC_SCHOOL", "HIGH_SCHOOL", "BACHELOR", "MASTER", "PHD", "INDUSTRIAL_SCHOOL" ],
-            "example" : "HIGH_SCHOOL"
           },
           "notes" : {
             "type" : "string",
