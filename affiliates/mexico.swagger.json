@@ -226,7 +226,7 @@
     },
     "/transaction-customer" : {
       "post" : {
-    "description": "**⚠️ Experimental**\n\nThis endpoint may change or respond with undocumented reponses.",
+    "description": "**⚠️ Experimental**\n\nThis endpoint may change or respond with undocumented responses.",
         "parameters" : [ {
           "name" : "Accept-Language",
           "in" : "header",
