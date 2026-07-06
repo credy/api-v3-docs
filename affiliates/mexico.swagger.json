@@ -290,12 +290,12 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ValidationErrors"
+                  "$ref" : "#/components/schemas/TransactionCustomerValidationErrors"
                 }
               },
               "application/xml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ValidationErrors"
+                  "$ref" : "#/components/schemas/TransactionCustomerValidationErrors"
                 }
               }
             }
@@ -601,6 +601,15 @@
           "$ref" : "#/components/schemas/ValidationErrors_inner"
         }
       },
+      "TransactionCustomerValidationErrors" : {
+        "type" : "array",
+        "xml" : {
+          "name" : "response"
+        },
+        "items" : {
+          "$ref" : "#/components/schemas/TransactionCustomerValidationErrors_inner"
+        }
+      },
       "CustomerResponse" : {
         "xml" : {
           "name" : "response"
@@ -735,6 +744,19 @@
           "message" : {
             "type" : "string",
             "example" : "Email address is invalid"
+          }
+        }
+      },
+      "TransactionCustomerValidationErrors_inner" : {
+        "type" : "object",
+        "properties" : {
+          "field" : {
+            "type" : "string",
+            "example" : "customer.personal_id"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Personal ID is invalid."
           }
         }
       },
