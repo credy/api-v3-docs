@@ -223,6 +223,88 @@
           "oAuth" : [ "get_country_price_list" ]
         } ]
       }
+    },
+    "/transaction-customer" : {
+      "post" : {
+    "description": "**⚠️ Experimental**\n\nThis endpoint may change or respond with undocumented responses.",
+        "parameters" : [ {
+          "name" : "Accept-Language",
+          "in" : "header",
+          "description" : "To get response error messages in Spanish, header’s value must be set to according ISO code. Ex: `es` or `es-MX`.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "format" : "string"
+          },
+          "example" : "es-MX"
+        } ],
+        "requestBody" : {
+          "description" : "transaction-customer info",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/transaction-customer"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/transaction-customer"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "transaction-customer is registered",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransactionCustomerResponse"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransactionCustomerResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnauthorizedResponse"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "422" : {
+            "description" : "Validation error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransactionCustomerValidationErrors"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransactionCustomerValidationErrors"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "oAuth" : [ ]
+        } ]
+      }
     }
   },
   "components" : {
@@ -449,6 +531,23 @@
           "name" : "request"
         }
       },
+      "transaction-customer" : {
+        "required" : [ "customer", "lead"],
+        "type" : "object",
+        "properties" : {
+          "lead" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/Lead"
+          },
+          "customer" : {
+            "type" : "object",
+            "$ref" : "#/components/schemas/Customer"
+          }
+        },
+        "xml" : {
+          "name" : "request"
+        }
+      },
       "Lead" : {
         "required" : [ "ip_address", "loan_period", "loan_purpose", "loan_sum" ],
         "type" : "object",
@@ -502,6 +601,15 @@
           "$ref" : "#/components/schemas/ValidationErrors_inner"
         }
       },
+      "TransactionCustomerValidationErrors" : {
+        "type" : "array",
+        "xml" : {
+          "name" : "response"
+        },
+        "items" : {
+          "$ref" : "#/components/schemas/TransactionCustomerValidationErrors_inner"
+        }
+      },
       "CustomerResponse" : {
         "xml" : {
           "name" : "response"
@@ -517,6 +625,33 @@
         }, {
           "$ref" : "#/components/schemas/Customer"
         } ]
+      },
+      "TransactionCustomerResponse" : {
+        "xml" : {
+          "name" : "response"
+        },
+        "type" : "object",
+        "properties" : {
+          "uuid" : {
+            "type" : "string",
+            "example" : "b3345507-8298-4bd1-843a-6a968e593f00"
+          },
+          "_links" : {
+            "type" : "object",
+            "properties" :{
+              "provider_redirect_url" : {
+                "type" : "object",
+                "properties" : {
+                  "href": {
+                    "type" : "string",
+                    "example" : "https://www.credy.com.mx/loading/?lead=b3345507-8298-4bd1-843a-6a968e593f00"
+                  }
+                }
+              }
+            }
+          }
+        }
+
       },
       "LeadResponse" : {
         "type" : "object",
@@ -609,6 +744,19 @@
           "message" : {
             "type" : "string",
             "example" : "Email address is invalid"
+          }
+        }
+      },
+      "TransactionCustomerValidationErrors_inner" : {
+        "type" : "object",
+        "properties" : {
+          "field" : {
+            "type" : "string",
+            "example" : "customer.personal_id"
+          },
+          "message" : {
+            "type" : "string",
+            "example" : "Personal ID is invalid."
           }
         }
       },
