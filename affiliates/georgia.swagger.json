@@ -314,6 +314,18 @@
             "description" : "IP address of customer",
             "example" : "192.168.0.255"
           },
+          "meta" : {
+            "type" : "object",
+            "description" : "Optional metadata about the customer's session.",
+            "properties" : {
+              "user_agent" : {
+                "type" : "string",
+                "maxLength" : 255,
+                "description" : "User-Agent header of the customer's browser.",
+                "example" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+              }
+            }
+          },
           "aff_lead_id": {
             "type": "string",
             "description": "Affiliate's application identifier. (can be used for tracking purposes for example)",
